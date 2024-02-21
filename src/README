@@ -1,0 +1,13 @@
+                Tema 1 - Petrea Andrei
+
+        Limbajul de programare folosit: C++
+
+    Pentru rezolvarea temei, am folosit limbajul C++ pentru a ma folosi de flexibilitatea POO-ului in transmiterea datelor catre functii.
+    Am creat o clasa agregat pentru pthread, care sa imi ofere o interfata mai simpla pentru a lucra cu ele si sa ca ele sa se auto-astepte.
+    Pornind de la scheletul secvential, am paralelizat functiile rescale_image, sample_grid si march.Am creat o clasa in care am bagat toate functiile originale si le-
+am rescris astfel incat sa separ partea de initializare a datelor pentru algoritm, creand metoda init si partea cu algoritmul propriu zis. astfel scapand de unele eror ce puteau aparea.
+Am creat o functie statica care sa fie data thread-urilor (statica altfel nu mai avea signatura potrivita pentru pthread), in care am pasat ca argument o pereche dintre obiectul curent si id-ul threadului curent.
+Am calculat intervalul de start si end in cazul nevoii scalarii imaginii si am apelat functia corespunzatoare, apoi folosind o bariera pentru a astepta toate threadurile sa ajunga la acelasi punct. 
+Dupa am calculat din nou start si end pentru sample_grid si march, paralelizand pe axa OY imaginea, apeland-ule dupa pe rand, folosind din nou o bariera pentru a delimita etapele.
+In cadrul celor 3 functii, am folosit bariere, pentru a ma asigura ca rezultatele sa fie corecte si am folosit 2 bariere diferite in loc de acceasi bariera pentru a fi sigur ca nu se vor bloca.
+In clasa am creat metoda run, ce imi creaza threadurile si le porneste, apoi asteapta sa se termine, dupa care le distruge. In main, creez obiectul si apelez metoda run.
